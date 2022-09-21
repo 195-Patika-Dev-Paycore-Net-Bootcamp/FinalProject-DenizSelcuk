@@ -31,5 +31,5 @@ Categories: Kategori CRUD işlemleri yapılır.
 /api/Products/MyProducts  : Kullanıcının sahip olduğu ürünler listelenir.
 /api/Products/{id}        : Id'ye göre ürün döner.
 /api/Products/{id}        : Kullanıcı kendi ürününü siler. Sahibi olmadığı ürünü silemez.
-/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, silinmez. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.
+/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, *silinmez*. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.
 ***
