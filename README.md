@@ -31,7 +31,7 @@ Categories: Kategori CRUD işlemleri yapılır.
 <p>/api/Products/MyProducts  : Kullanıcının sahip olduğu ürünler listelenir.</p>
 <p>/api/Products/{id}        : Id'ye göre ürün döner.</p>
 <p>/api/Products/{id}        : Kullanıcı kendi ürününü siler. Sahibi olmadığı ürünü silemez.</p>
-<p>/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, **silinmez**. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.</p>
+<p>/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, silinmez. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.</p>
 
 ***
 ![image](https://user-images.githubusercontent.com/42787488/191579994-fb68368d-d474-4ca6-86de-a13883d44cec.png)
@@ -46,7 +46,7 @@ Categories: Kategori CRUD işlemleri yapılır.
 
 ***
 ## Nasıl Çalıştırılır? 
-<ul>1- sdads</ul>
-<ul>2- asdasd</ul>
-<ul>3- dasdasd</ul>
+<ul>1- appsettings.json içerisinde bulunan ConnectionStrings'in Data Source'u uygun şekilde değiştirilir.</ul>
+<ul>2- .NET CLI "dotnet ef migrations add InitialCreate" komutu veya PowerShell "Add-Migration InitialCreate" komutu migration işlemi gerçekleştirilir.</ul>
+<ul>3- .NET CLI "dotnet ef database update" komutu veya PowerShell "Update-Database" komutu ile databse güncellenir/oluşturulur.</ul>
 
