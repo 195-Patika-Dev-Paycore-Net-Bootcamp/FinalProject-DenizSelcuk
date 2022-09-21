@@ -24,3 +24,12 @@ Bilgileri ile token oluşturulur.
 Categories: Kategori CRUD işlemleri yapılır.
 
 ***
+![image](https://user-images.githubusercontent.com/42787488/191577945-61471eb5-2699-4994-960b-59f82ff45281.png)
+/api/Products             : Veri tabanındaki tüm ürünler listelenir.
+/api/Products             : Veri tanına yeni bir ürün kaydedilir. Ürün sahibi kullanıcıya otomatik olarak atanır.
+/api/Products             : Kullanıcı kendi ürününü günceller. Sahibi olmadığı ürünü güncelleyemez.
+/api/Products/MyProducts  : Kullanıcının sahip olduğu ürünler listelenir.
+/api/Products/{id}        : Id'ye göre ürün döner.
+/api/Products/{id}        : Kullanıcı kendi ürününü siler. Sahibi olmadığı ürünü silemez.
+/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, silinmez. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.
+***
