@@ -25,8 +25,8 @@ Categories: Kategori CRUD işlemleri yapılır.
 
 ***
 ![image](https://user-images.githubusercontent.com/42787488/191577945-61471eb5-2699-4994-960b-59f82ff45281.png)
-/api/Products             : Veri tabanındaki tüm ürünler listelenir.
-/api/Products             : Veri tanına yeni bir ürün kaydedilir. Ürün sahibi kullanıcıya otomatik olarak atanır.
+<p>/api/Products             : Veri tabanındaki tüm ürünler listelenir.</p>
+<p>/api/Products             : Veri tanına yeni bir ürün kaydedilir. Ürün sahibi kullanıcıya otomatik olarak atanır.</p>
 /api/Products             : Kullanıcı kendi ürününü günceller. Sahibi olmadığı ürünü güncelleyemez.
 /api/Products/MyProducts  : Kullanıcının sahip olduğu ürünler listelenir.
 /api/Products/{id}        : Id'ye göre ürün döner.
