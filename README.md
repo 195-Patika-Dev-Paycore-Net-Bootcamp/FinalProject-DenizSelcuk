@@ -34,3 +34,16 @@ Categories: Kategori CRUD işlemleri yapılır.
 <p>/api/Products/Buy         : Kullanıcı ürün satın alınabilir ise ürünü satın alır. Satılan ürün ilk sahibinin listesinde satıldı olarak işaretlenir, silinmez. Tekrar                                 satılamaz. Ürünü satın alan kullanıcının listesine yeni ürün satılabilir olarak eklenir.</p>
 
 ***
+![image](https://user-images.githubusercontent.com/42787488/191579994-fb68368d-d474-4ca6-86de-a13883d44cec.png)
+
+<p>/api/Offers                 : Kullanıcı bir ürün için teklif oluşturur. Teklifi yapan kullanıcının outboxOffer listesine, teklif yapılan ürünün sahibinin inboxOffer    listesine teklif eklenir.</p>
+<p>/api/Offers                 : Teklifin sahibi kullanıcı ise teklifi yaptığı teklifi günceller.</p>
+<p>/api/Offers                 : Teklifin sahibi kullanıcı ise teklifi yaptığı teklifi siler.</p>
+<p>/api/Offers/Inbox           : Kullanıcının ürünlerine gelen teklifleri listeler.</p>
+<p>/api/Offers/Outbox          : Kullanıcının başka kullanıcıların ürünlerine yaptığı teklifleri listeler.</p>
+<p>/api/Offers/Confirm         : Kullanıcı kendi ürününe yapılan bir teklifi onaylar.</p>
+<p>/api/Offers/Refuse          : Kullanıcı kendi ürününe yapılan bir teklifi reddeder.</p>
+
+***
+
+
