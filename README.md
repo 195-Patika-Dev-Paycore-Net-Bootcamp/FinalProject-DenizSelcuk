@@ -45,5 +45,9 @@ Categories: Kategori CRUD işlemleri yapılır.
 <p>/api/Offers/Refuse          : Kullanıcı kendi ürününe yapılan bir teklifi reddeder.</p>
 
 ***
-
-
+## Nasıl Çalıştırılır? 
+<ul>sdas</ul>
+<ul>asdasd</ul>
+<ul>asdasd</ul>
+<ol>asdasd</ol>
+<ol>sdsd</ol>
