@@ -12,6 +12,5 @@ namespace PayCore.Core.DTOs
         public decimal BidPrice { get; set; }
         public int ProductId { get; set; }
         public string UserAppId { get; set; }
-
     }
 }

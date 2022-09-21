@@ -18,6 +18,7 @@ namespace Paycore.Repository.Configurations
             builder.Property(x => x.BidPrice).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(x => x.ProductId).IsRequired();
             builder.Property(x => x.UserAppId).IsRequired();
+            builder.Property(x => x.IsConfirm).HasDefaultValue(false);
 
             //Tablo ilişkileri
             builder.HasOne(x => x.Product).WithMany(x => x.Offers).HasForeignKey(x => x.ProductId);

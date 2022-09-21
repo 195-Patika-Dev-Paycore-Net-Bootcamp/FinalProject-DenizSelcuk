@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PayCore.API.Controllers
 {
-    public class UsersController : CustomBaseController
+    public class RegisterController : CustomBaseController
     {
         private readonly IUserService _userService;
 
-        public UsersController(IUserService userService)
+        public RegisterController(IUserService userService)
         {
             _userService = userService;
         }

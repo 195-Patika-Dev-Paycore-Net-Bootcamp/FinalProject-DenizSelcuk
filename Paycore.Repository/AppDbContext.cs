@@ -20,7 +20,6 @@ namespace Paycore.Repository
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductFeature> ProductFeatures { get; set; }
         //public DbSet<Account> Accounts { get; set; }
         public DbSet<Offer> Offers { get; set; }
 

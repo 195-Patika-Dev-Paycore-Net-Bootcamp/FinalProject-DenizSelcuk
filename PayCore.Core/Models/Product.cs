@@ -14,13 +14,12 @@ namespace PayCore.Core.Models
         public bool IsOfferable { get; set; } = true;
 
         public bool IsSold { get; set; } = false;
-        public int AccountId { get; set; } //Ürün sahibinin hesap ıd
         public UserApp UserApp { get; set; } //Ürün sahibinin hesabı
         public string UserAppId { get; set; } 
         public Category Category { get; set; }
         public int CategoryId { get; set; }
-        public int ProductFeatureId { get; set; }
-        public ProductFeature ProductFeature { get; set; }
+        public string Color { get; set; } //Ayrı bir productfeature entitysinde tutulacak
+        public string Brand { get; set; } //Ayrı bir productfeature entitysinde tutulacak
         public ICollection<Offer> Offers { get; set; } //Ürüne gelen teklifler
     }
 }

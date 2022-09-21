@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PayCore.Core.Services
 {
     /// <summary>
-    /// Bu servis bir controllarda kullanılmayacak. Sadece token oluşturmak için kullanıulacak.
+    /// Bu servis bir controllarda kullanılmayacak. Sadece token oluşturmak için kullanılacak.
     /// </summary>
     public interface ITokenService
     {

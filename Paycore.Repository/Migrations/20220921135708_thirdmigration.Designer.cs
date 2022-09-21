@@ -10,8 +10,8 @@ using Paycore.Repository;
 namespace Paycore.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220918152632_initial")]
-    partial class initial
+    [Migration("20220921135708_thirdmigration")]
+    partial class thirdmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,8 +178,10 @@ namespace Paycore.Repository.Migrations
                     b.Property<decimal>("BidPrice")
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<bool>("IsRefused")
-                        .HasColumnType("boolean");
+                    b.Property<bool>("IsConfirm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -207,8 +209,16 @@ namespace Paycore.Repository.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -216,9 +226,7 @@ namespace Paycore.Repository.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<bool>("IsOfferable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsSold")
                         .ValueGeneratedOnAdd()
@@ -233,9 +241,6 @@ namespace Paycore.Repository.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<int>("ProductFeatureId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("UserAppId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -247,34 +252,6 @@ namespace Paycore.Repository.Migrations
                     b.HasIndex("UserAppId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("PayCore.Core.Models.ProductFeature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("ProductFeatures");
                 });
 
             modelBuilder.Entity("PayCore.Core.Models.UserApp", b =>
@@ -448,17 +425,6 @@ namespace Paycore.Repository.Migrations
                     b.Navigation("UserApp");
                 });
 
-            modelBuilder.Entity("PayCore.Core.Models.ProductFeature", b =>
-                {
-                    b.HasOne("PayCore.Core.Models.Product", "Product")
-                        .WithOne("ProductFeature")
-                        .HasForeignKey("PayCore.Core.Models.ProductFeature", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("PayCore.Core.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -467,8 +433,6 @@ namespace Paycore.Repository.Migrations
             modelBuilder.Entity("PayCore.Core.Models.Product", b =>
                 {
                     b.Navigation("Offers");
-
-                    b.Navigation("ProductFeature");
                 });
 
             modelBuilder.Entity("PayCore.Core.Models.UserApp", b =>

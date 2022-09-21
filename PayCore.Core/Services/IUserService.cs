@@ -13,6 +13,7 @@ namespace PayCore.Core.Services
     public interface IUserService
     {
         Task<CustomResponseDto<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto);
+        Task<UserAppDto> GetUserByNameAsync(string userName);
 
     }
 }

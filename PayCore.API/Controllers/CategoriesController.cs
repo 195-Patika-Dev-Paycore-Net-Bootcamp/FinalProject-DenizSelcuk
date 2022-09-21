@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PayCore.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CategoriesController : CustomBaseController
     {
         private readonly IMapper _mapper;
@@ -51,12 +51,6 @@ namespace PayCore.API.Controllers
             await _categoryService.UpdateAsync(_mapper.Map<Category>(categoryDto));
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
-        {
-            var category = await _categoryService.GetByIdAsync(id);
-            await _categoryService.RemoveAsync(category);
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
-        }
+        
     }
 }

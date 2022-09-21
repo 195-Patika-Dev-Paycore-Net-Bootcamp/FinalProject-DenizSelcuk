@@ -43,10 +43,14 @@ namespace PayCore.Service.Services
 
             var createdUser = _mapper.Map<UserAppDto>(user);
 
-
-
-
             return CustomResponseDto<UserAppDto>.Success(200, createdUser);
+        }
+
+        public async Task<UserAppDto> GetUserByNameAsync(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            return _mapper.Map<UserAppDto>(user);
         }
     }
 }

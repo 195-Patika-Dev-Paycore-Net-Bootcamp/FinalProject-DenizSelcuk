@@ -10,52 +10,86 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace PayCore.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class OffersController : CustomBaseController
     {
         private readonly IMapper _mapper;
-        private readonly IGenericService<Offer> _offerService;
+        private readonly IOfferService _offerService;
+        private readonly IUserService _userService;
 
-        public OffersController(IMapper mapper, IGenericService<Offer> offerService)
+        public OffersController(IUserService userService, IMapper mapper, IOfferService offerService)
         {
             _mapper = mapper;
             _offerService = offerService;
+            _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> All()
-        {
-            var offers = await _offerService.GetAllAsync();
-            var offersDtos = _mapper.Map<List<OfferDto>>(offers.ToList());
-            return CreateActionResult(CustomResponseDto<List<OfferDto>>.Success(200, offersDtos));
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var offer = await _offerService.GetByIdAsync(id);
-            var offersDto = _mapper.Map<OfferDto>(offer);
-            return CreateActionResult(CustomResponseDto<OfferDto>.Success(200, offersDto));
-        }
         [HttpPost]
-        public async Task<IActionResult> Save(OfferDto offerDto)
+        public async Task<IActionResult> CreateOffer(OfferCreateDto offerCreateDto)
         {
-            var offer = await _offerService.AddAsync(_mapper.Map<Offer>(offerDto));
-            var offersDto = _mapper.Map<OfferDto>(offer);
-            return CreateActionResult(CustomResponseDto<OfferDto>.Success(201, offersDto));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            var offerDto = _mapper.Map<OfferDto>(offerCreateDto);
+
+            offerDto.UserAppId = userDto.Id;
+
+            return CreateActionResult(await _offerService.CreateOffer(offerDto));
         }
+
         [HttpPut]
         public async Task<IActionResult> Update(OfferUpdateDto offerDto)
         {
-            await _offerService.UpdateAsync(_mapper.Map<Offer>(offerDto));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            await _offerService.UpdateOffer(offerDto,userDto.Id);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int offerId)
         {
-            var offer = await _offerService.GetByIdAsync(id);
-            await _offerService.RemoveAsync(offer);
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+            return CreateActionResult(await _offerService.DeleteOffer(offerId, userDto.Id));
         }
+
+        [HttpGet("Inbox")]
+        public async Task<IActionResult> GetInboxOffers()
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            var offersDto = await _offerService.GetAllOffersForUserAppInBoxAsync(userDto.Id);
+
+            return CreateActionResult(CustomResponseDto<List<OfferGetDto>>.Success(200, offersDto.ToList()));
+        }
+
+        [HttpGet("Outbox")]
+        public async Task<IActionResult> GetOutboxOffers()
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            var offersDto = await _offerService.GetAllOffersForUserAppOutBoxAsync(userDto.Id);
+
+            return CreateActionResult(CustomResponseDto<List<OfferGetDto>>.Success(200, offersDto.ToList()));
+        }
+
+        [HttpPut("Confirm")]
+        public async Task<IActionResult> ConfimOffer(int offerId)
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            return CreateActionResult(await _offerService.ConfirmOrRefuseTheOffer(offerId, userDto.Id, true));
+        }
+
+        [HttpPut("Refuse")]
+        public async Task<IActionResult> RefuseOffer(int offerId)
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            return CreateActionResult(await _offerService.ConfirmOrRefuseTheOffer(offerId, userDto.Id, false));
+        }
+
+
+
+
     }
 }

@@ -16,7 +16,7 @@ namespace PayCore.Service.Services
     public class GenericService<TEntity> : IGenericService<TEntity> where TEntity : class
     {
 
-        private readonly IGenericRepository<TEntity> _repository;
+        protected readonly IGenericRepository<TEntity> _repository;
         protected readonly IUnitOfWork _unitOfWork;
 
         public GenericService(IGenericRepository<TEntity> repository, IUnitOfWork unitOfWork)

@@ -15,23 +15,34 @@ namespace PayCore.API.Controllers
     public class ProductsController : CustomBaseController
     {
         private readonly IMapper _mapper;
-        private readonly IGenericService<Product> _productService;
+        private readonly IProductService _productService;
+        private readonly IUserService _userService;
 
-        public ProductsController(IMapper mapper, IGenericService<Product> productService)
+        public ProductsController(IUserService userService, IMapper mapper, IProductService productService)
         {
             _mapper = mapper;
             _productService = productService;
+            _userService = userService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllAsync();
             var productsDtos = _mapper.Map<List<ProductDto>>(products.ToList());
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productsDtos));
         }
 
-        [ServiceFilter(typeof(NotFoundFilter<Product>))] //NotFoundFilter direk bir attribute classını miras almadığı için doğrudan attribute olarak eklemezsin. NEDEN:1 dinamik kullanmak istiyoruz 2 constructor metodunda parametre kullandığımız için bir attirutede kullanamayız. Bu yüzden servisfilter kullanmalısın. ÇÖZÜM:ServiceFilter attributene kendi oluşturduğumuz filter'ı tip olarak verdik.
+        [HttpGet("MyProducts")]
+        public async Task<IActionResult> GetProductsOfUser()
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            var productsDto = await _productService.GetProductsForUserIdAsync(userDto.Id);
+
+            return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productsDto.ToList()));
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -40,26 +51,39 @@ namespace PayCore.API.Controllers
             return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productsDto));
         }
         [HttpPost]
-        public async Task<IActionResult> Save(ProductDto productDto)
+        public async Task<IActionResult> AddProductToListOfUser(ProductCreateDto productCreateDto)
         {
-            var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
-            var productsDto = _mapper.Map<ProductDto>(product);
-            return CreateActionResult(CustomResponseDto<ProductDto>.Success(201, productsDto));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            var productDto = _mapper.Map<ProductDto>(productCreateDto);
+
+            productDto.UserAppId = userDto.Id;
+
+            var productsDto = await _productService.AddProduct(productDto);
+
+            return CreateActionResult(CustomResponseDto<ProductDto>.Success(200, productsDto));
         }
         [HttpPut]
-        public async Task<IActionResult> Update(ProductUpdateDto productDto)
+        public async Task<IActionResult> UpdateProductOfUser(ProductUpdateDto productUpdateDto)
         {
-            await _productService.UpdateAsync(_mapper.Map<Product>(productDto));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+            await _productService.UpdateProductOfUser(productUpdateDto, userDto.Id);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> DeleteProductOfUser(int id)
         {
-            var product = await _productService.GetByIdAsync(id);
-            await _productService.RemoveAsync(product);
-            return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
+
+            return CreateActionResult(await _productService.DeleteProductOfUser(id, userDto.Id));
         }
 
+        [HttpPost("Buy")]
+        public async Task<IActionResult> BuyProduct(int id)
+        {
+            var userDto = await _userService.GetUserByNameAsync(HttpContext.User.Identity.Name);
 
+            return CreateActionResult(await _productService.BuyProduct(id, userDto.Id));
+        }
     }
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PayCore.Core.DTOs
 {
-    public class OfferDto
+    public class OfferGetDto
     {
-        
+        public int Id { get; set; }
         public decimal BidPrice { get; set; }
         public int ProductId { get; set; }
-        public string UserAppId { get; set; }
+        public bool IsConfirm { get; set; }
     }
 }

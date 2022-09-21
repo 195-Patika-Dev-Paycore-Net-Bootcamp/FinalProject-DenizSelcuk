@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Paycore.Repository.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,7 +193,8 @@ namespace Paycore.Repository.Migrations
                     AccountId = table.Column<int>(type: "integer", nullable: false),
                     UserAppId = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    ProductFeatureId = table.Column<int>(type: "integer", nullable: false)
+                    Color = table.Column<string>(type: "text", nullable: false),
+                    Brand = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -234,27 +235,6 @@ namespace Paycore.Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Offers_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductFeatures",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Color = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Brand = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductFeatures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductFeatures_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -309,12 +289,6 @@ namespace Paycore.Repository.Migrations
                 column: "UserAppId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductFeatures_ProductId",
-                table: "ProductFeatures",
-                column: "ProductId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -344,9 +318,6 @@ namespace Paycore.Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Offers");
-
-            migrationBuilder.DropTable(
-                name: "ProductFeatures");
 
             migrationBuilder.DropTable(
                 name: "UserRefreshTokens");

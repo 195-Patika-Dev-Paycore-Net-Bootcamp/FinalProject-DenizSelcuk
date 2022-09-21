@@ -11,22 +11,22 @@ namespace Paycore.Repository.Repositories
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
-
-        public ProductRepository(AppDbContext dbContext) : base(dbContext)
+        public ProductRepository(AppDbContext dbcontext) : base(dbcontext)
         {
-
         }
 
-        public async Task AddOfferToProductAsync(Offer offer)
+        
+
+        public async Task<IEnumerable<Product>> GetAllProductsWithOffersForUserAppAsync(string userAppId)
         {
-            var product = await _dbContext.Products.FindAsync(offer.ProductId);
-            product.Offers.Add(offer);
+            var offers = await _dbContext.Products.Include(x => x.Offers).Where(x => x.UserAppId == userAppId).ToListAsync();
+
+            return offers;  
         }
 
-        public IQueryable<Offer> GetAllOffersForProductAsync(int productId)
+        public async Task<List<Product>> GetProductsForUserIdAsync(string userAppId)
         {
-            var offers = _dbContext.Offers.Where(x=> x.ProductId==productId);
-            return offers;
+            return await _dbContext.Products.Where(x=>x.UserAppId==userAppId).ToListAsync();
         }
     }
 }

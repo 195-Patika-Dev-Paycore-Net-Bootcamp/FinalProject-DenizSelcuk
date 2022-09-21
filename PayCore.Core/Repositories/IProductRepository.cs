@@ -1,4 +1,5 @@
-﻿using PayCore.Core.Models;
+﻿
+using PayCore.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ namespace PayCore.Core.Repositories
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
-        Task AddOfferToProductAsync(Offer offer);
-        IQueryable<Offer> GetAllOffersForProductAsync(int productId);
+        Task<IEnumerable<Product>> GetAllProductsWithOffersForUserAppAsync(string userAppId);
+        
+        Task<List<Product>> GetProductsForUserIdAsync(string userAppId);
+
+
+
     }
 }

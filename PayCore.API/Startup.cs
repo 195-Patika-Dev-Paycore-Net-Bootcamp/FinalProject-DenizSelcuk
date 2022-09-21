@@ -74,12 +74,17 @@ namespace PayCore.API
             services.AddJwtBearerAuthentication(tokenOption); //++
             
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption")); //DI Conteinera bir nesne geçtik. Options Pattern olarak geçer. Microsoft Options Pattern.
+
             
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PayCore.API", Version = "v1" });
-            });
+            //***
+            services.AddCustomizeSwagger();
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PayCore.API", Version = "v1" });
+            //});
+
+            //
 
         }
 
@@ -90,7 +95,7 @@ namespace PayCore.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PayCore.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PayCore Final Project"));
             }
 
             app.UseHttpsRedirection();
