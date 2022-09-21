@@ -12,7 +12,7 @@ Bu proje 195-PayCore-Net-Bootcamp bitirme projesi kapsamında oluşturulmuştur.
   "password": "string"
 }
 Bilgileri ile uygulamaya kayıt olunur.
-
+***
 ![image](https://user-images.githubusercontent.com/42787488/191574862-939ebe28-d49b-4a9b-8ca9-e5a72c6fe824.png)
 {
   "email": "string",
