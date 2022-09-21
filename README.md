@@ -21,6 +21,6 @@ Bilgileri ile uygulamaya kayıt olunur.
 Bilgileri ile token oluşturulur.
 ***
 ![image](https://user-images.githubusercontent.com/42787488/191575065-f00591f0-ddc9-4e72-a39c-dd2ab6dbbfdc.png)
-Categories: Genel kategori CRUD işlemleri 
+Categories: Kategori CRUD işlemleri yapılır.
 
 ***
