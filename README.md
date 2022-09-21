@@ -46,8 +46,7 @@ Categories: Kategori CRUD işlemleri yapılır.
 
 ***
 ## Nasıl Çalıştırılır? 
-<ul>sdas</ul>
-<ul>asdasd</ul>
-<ul>asdasd</ul>
-<ol>asdasd</ol>
-<ol>sdsd</ol>
+<ul>1- sdads</ul>
+<ul>2- asdasd</ul>
+<ul>3- dasdasd</ul>
+
